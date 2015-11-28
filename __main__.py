@@ -1,5 +1,6 @@
 from asyncio import get_event_loop, wait
 from logging import basicConfig
+from sys import argv
 from time import time
 
 from aiohttp import get
@@ -17,8 +18,9 @@ def main():
     def gen_tasks():
         for _ in range(requests):
             yield client_request(url)
-    url = "http://www.twogifs.com"
-    requests = 90
+    # FIXME argparse!
+    url = argv[1]
+    requests = int(argv[2])
     print("Requesting {} {} times".format(url, requests))
     tasks = list(gen_tasks())
     loop = get_event_loop()
